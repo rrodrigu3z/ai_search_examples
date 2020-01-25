@@ -17,6 +17,7 @@
 from priority_queue import PriorityQueue
 from node import Node
 from problem import Problem
+from solution import Solution
 
 def uniform_cost_search(problem, f):
   node = Node(state=problem.initial_state, path_cost=0)
@@ -50,10 +51,19 @@ def astar_search(problem, h=None):
 def h_misplaced(node):
   return problem.h_misplaced(node.state)
 
-initial = [[2, 8, 3], [1, 6, 4], [7, 0, 5]]
-goal = [[1, 2, 3], [8, 0, 4], [7, 6, 5]]
-problem = Problem(initial, goal=goal)
+initial = [
+  [2, 8, 3],
+  [1, 6, 4],
+  [7, 0, 5]
+]
+goal = [
+  [1, 2, 3],
+  [8, 0, 4],
+  [7, 6, 5]
+]
 
-solution = astar_search(problem, h=h_misplaced)
-print(solution.state)
-print(list(map(lambda n: n.state, solution.path())))
+problem = Problem(initial, goal=goal)
+goal_node = astar_search(problem, h=h_misplaced)
+
+solution = Solution(problem, goal_node)
+solution.print_solution()
