@@ -58,3 +58,17 @@ def test_right():
   state = [[1, 2, 3], [4, 0, 6], [7, 8, 9]]
   expected_state = [[1, 2, 3], [0, 4, 6], [7, 8, 9]]
   assert p.right(state) == expected_state
+
+def test_default_path_cost():
+  assert p.path_cost(1) == 2
+
+def test_execute_action():
+  state = [[1, 2, 3], [4, 0, 6], [7, 8, 9]]
+  expected_state = [[1, 2, 3], [4, 8, 6], [7, 0, 9]]
+  assert p.execute("up", state) == expected_state
+
+def test_h_misplaced():
+  goal = [[1, 2, 3], [4, 0, 6], [7, 8, 9]]
+  state = [[2, 1, 3], [4, 8, 6], [7, 0, 9]]
+  problem = Problem(None, goal=goal)
+  assert problem.h_misplaced(state) == 4
